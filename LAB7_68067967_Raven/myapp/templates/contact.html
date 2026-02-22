@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ติดต่อเรา — LAB7 Raven</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --accent: #06b6d4;
+            --bg: #0b0b1a;
+            --bg-card: #13132b;
+            --bg-input: #0d0d1f;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(99, 102, 241, 0.18);
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1rem;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -150px;
+            background: rgba(99, 102, 241, 0.12);
+            animation: blob 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes blob {
+            0% {
+                transform: scale(1) translate(0, 0)
+            }
+
+            100% {
+                transform: scale(1.1) translate(40px, 40px)
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: .9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(11, 11, 26, .85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--primary-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: .5rem;
+        }
+
+        .nav-link {
+            padding: .45rem 1rem;
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: .875rem;
+            font-weight: 500;
+            transition: all .25s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(99, 102, 241, .15);
+            color: var(--primary-light);
+        }
+
+        .nav-link i {
+            margin-right: .3rem;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 5rem;
+            animation: fadeUp .65s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header-icon {
+            width: 76px;
+            height: 76px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.1rem;
+            box-shadow: 0 0 40px rgba(99, 102, 241, .35);
+        }
+
+        .header-icon i {
+            font-size: 2.1rem;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e2e8f0 40%, var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: .35rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: .95rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .04);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all .3s;
+            cursor: default;
+        }
+
+        .contact-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 24px rgba(99, 102, 241, .18);
+            transform: translateY(-4px);
+        }
+
+        .contact-card .cc-icon {
+            font-size: 1.8rem;
+            margin-bottom: .75rem;
+            display: block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-card .cc-label {
+            font-size: .72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            font-weight: 700;
+            margin-bottom: .35rem;
+        }
+
+        .contact-card .cc-value {
+            color: var(--text);
+            font-size: .9rem;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: rgba(99, 102, 241, .07);
+            border: 1px solid rgba(99, 102, 241, .2);
+            border-radius: 14px;
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            gap: .85rem;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-box i {
+            color: var(--primary-light);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .info-box p {
+            color: var(--text-muted);
+            font-size: .9rem;
+            line-height: 1.65;
+        }
+
+        .info-box p strong {
+            color: var(--text);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: .75rem;
+        }
+
+        .btn-primary,
+        .btn-outline {
+            flex: 1;
+            padding: .9rem;
+            border-radius: 12px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            transition: all .28s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(99, 102, 241, .5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        @media(max-width:480px) {
+            .contact-grid {
+                grid-template-columns: 1fr
+            }
+
+            .card {
+                padding: 1.75rem 1.25rem
+            }
+
+            .btn-row {
+                flex-direction: column
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand"><i class="fas fa-crow"></i>Lab7 <span>Raven</span></a>
+        <div class="nav-links">
+            <a href="/form/" class="nav-link"><i class="fas fa-user-plus"></i>ฟอร์ม</a>
+            <a href="/employees/" class="nav-link"><i class="fas fa-users"></i>รายชื่อ</a>
+            <a href="/contact/" class="nav-link active"><i class="fas fa-headset"></i>ติดต่อ</a>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <div class="page-header">
+            <div class="header-icon"><i class="fas fa-headset"></i></div>
+            <h1>ติดต่อเรา</h1>
+            <p>พร้อมให้บริการและตอบทุกคำถามของคุณ</p>
+        </div>
+
+        <div class="card">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-phone-alt cc-icon"></i>
+                    <div class="cc-label">โทรศัพท์</div>
+                    <div class="cc-value">02-XXX-XXXX</div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope cc-icon"></i>
+                    <div class="cc-label">อีเมล</div>
+                    <div class="cc-value">hr@company.com</div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt cc-icon"></i>
+                    <div class="cc-label">ที่อยู่</div>
+                    <div class="cc-value">กรุงเทพมหานคร</div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-clock cc-icon"></i>
+                    <div class="cc-label">เวลาทำการ</div>
+                    <div class="cc-value">จ–ศ 09:00–18:00</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <p>
+                    สำหรับการสมัครงานหรือสอบถามข้อมูลพนักงาน กรุณากรอกแบบฟอร์มด้านล่าง<br>
+                    <strong>ทีมงานจะติดต่อกลับภายใน 1–2 วันทำการ</strong>
+                </p>
+            </div>
+
+            <div class="btn-row">
+                <a href="/form/" class="btn-primary"><i class="fas fa-user-plus"></i>กรอกแบบฟอร์ม</a>
+                <a href="/employees/" class="btn-outline"><i class="fas fa-users"></i>ดูรายชื่อ</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
